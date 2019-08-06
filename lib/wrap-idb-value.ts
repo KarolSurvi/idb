@@ -2,6 +2,9 @@ import {
   IDBPCursor, IDBPCursorWithValue, IDBPDatabase, IDBPIndex, IDBPObjectStore, IDBPTransaction,
 } from './entry';
 import { Constructor, Func, instanceOfAny } from './util';
+// @ts-ignore
+// tslint:disable-next-line:variable-name
+const ProxyPolyfill = require('proxy-polyfill/src/proxy');
 
 let idbProxyableTypes: Constructor[];
 let cursorAdvanceMethods: Func[];
@@ -165,7 +168,7 @@ function transformCachableValue(value: any): any {
   // which is later returned for transaction.done (see idbObjectHandler).
   if (value instanceof IDBTransaction) cacheDonePromiseForTransaction(value);
 
-  if (instanceOfAny(value, getIdbProxyableTypes())) return new Proxy(value, idbProxyTraps);
+  if (instanceOfAny(value, getIdbProxyableTypes())) return new ProxyPolyfill(value, idbProxyTraps);
 
   // Return the same value back if we're not going to transform it.
   return value;

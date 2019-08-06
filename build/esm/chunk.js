@@ -1,5 +1,8 @@
 const instanceOfAny = (object, constructors) => constructors.some(c => object instanceof c);
 
+// @ts-ignore
+// tslint:disable-next-line:variable-name
+const ProxyPolyfill = require('proxy-polyfill/src/proxy');
 let idbProxyableTypes;
 let cursorAdvanceMethods;
 // This is a function to prevent it throwing up in node environments.
@@ -142,7 +145,7 @@ function transformCachableValue(value) {
     if (value instanceof IDBTransaction)
         cacheDonePromiseForTransaction(value);
     if (instanceOfAny(value, getIdbProxyableTypes()))
-        return new Proxy(value, idbProxyTraps);
+        return new ProxyPolyfill(value, idbProxyTraps);
     // Return the same value back if we're not going to transform it.
     return value;
 }
