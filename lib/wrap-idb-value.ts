@@ -4,7 +4,7 @@ import {
 import { Constructor, Func, instanceOfAny } from './util';
 // @ts-ignore
 // tslint:disable-next-line:variable-name
-const ProxyPolyfill = require('proxy-polyfill/src/proxy');
+import * as ProxyPolyfill from '../node_modules/proxy-polyfill/src/proxy';
 
 let idbProxyableTypes: Constructor[];
 let cursorAdvanceMethods: Func[];

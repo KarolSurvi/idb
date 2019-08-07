@@ -11,6 +11,7 @@ const testBuild = {
       namedExports: {
         'chai': ['assert'],
       },
+      include: 'node_modules/**'
     }),
     typescript({
       tsconfig: 'test/tsconfig.json',
